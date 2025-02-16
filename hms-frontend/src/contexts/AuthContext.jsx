@@ -12,12 +12,14 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Check active sessions and sets the user
     const checkUser = async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession();
         setUser(session?.user ?? null);
         
         if (session?.user) {
+          // Fetch user role from user metadata
           const { data: profile } = await supabase
             .from('user_profiles')
             .select('role')
@@ -35,10 +37,13 @@ export function AuthProvider({ children }) {
     };
 
     checkUser();
+
+    // Listen for changes on auth state
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setUser(session?.user ?? null);
       
       if (session?.user) {
+        // Fetch user role when auth state changes
         const { data: profile } = await supabase
           .from('user_profiles')
           .select('role')
@@ -58,6 +63,7 @@ export function AuthProvider({ children }) {
 
   const signUp = async ({ email, password, role, firstName, lastName }) => {
     try {
+      // Create auth user
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
         password,
@@ -71,6 +77,7 @@ export function AuthProvider({ children }) {
 
       if (authError) throw authError;
 
+      // Create user profile with role
       if (authData.user) {
         const { error: profileError } = await supabase
           .from('user_profiles')
@@ -103,6 +110,7 @@ export function AuthProvider({ children }) {
 
       if (error) throw error;
 
+      // Fetch user role after successful sign in
       const { data: profile } = await supabase
         .from('user_profiles')
         .select('role')

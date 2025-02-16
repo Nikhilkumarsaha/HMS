@@ -10,10 +10,10 @@ function Signup() {
     password: '',
     firstName: '',
     lastName: '',
-    role: 'patient', 
-    specialization: '', 
-    licenseNumber: '', 
-    department: '' 
+    role: 'patient', // Default role
+    specialization: '', // For doctors
+    licenseNumber: '', // For doctors and nurses
+    department: '' // For staff
   });
   const [loading, setLoading] = useState(false);
   const { signUp } = useAuth();

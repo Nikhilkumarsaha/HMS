@@ -26,6 +26,8 @@ function Layout() {
     await signOut();
     navigate('/login');
   };
+
+  // Define menu items based on user role
   const getMenuItems = () => {
     const baseItems = [
       { icon: Hospital, label: 'Dashboard', path: '/', roles: ['admin', 'doctor', 'nurse', 'pharmacist', 'lab_technician'] },
@@ -79,6 +81,7 @@ function Layout() {
 
   return (
     <div className="flex h-screen bg-gray-100">
+      {/* Sidebar */}
       <div className="w-64 bg-white shadow-lg">
         <div className="p-4">
           <h1 className="text-2xl font-bold text-gray-800">HMS</h1>
@@ -105,6 +108,8 @@ function Layout() {
           </button>
         </nav>
       </div>
+
+      {/* Main Content */}
       <div className="flex-1 overflow-auto">
         <header className="bg-white shadow-sm">
           <div className="px-4 py-3">

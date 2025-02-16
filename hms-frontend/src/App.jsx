@@ -7,6 +7,12 @@ import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Patients from './pages/Patients';
 import Doctors from './pages/Doctors';
+import Appointments from './pages/Appointments';
+import MedicalRecords from './pages/MedicalRecords';
+import Billing from './pages/Billing';
+import Inventory from './pages/Inventory';
+import Pharmacy from './pages/Pharmacy';
+import Laboratory from './pages/Laboratory';
 import Layout from './components/Layout';
 
 function App() {
@@ -18,6 +24,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route element={<Layout />}>
+            {/* Admin Routes */}
             <Route path="/" element={
               <PrivateRoute allowedRoles={['admin', 'doctor', 'nurse', 'pharmacist', 'lab_technician']}>
                 <Dashboard />
